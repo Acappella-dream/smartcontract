@@ -18,7 +18,7 @@ typedef struct _Feature{
     uint64_t state;
 }Feature;
 
-class GirlBook: public eosio::contract{
+class girlbook: public eosio::contract{
     // @abi table data i64
     struct address {
         uint64_t id;
@@ -38,7 +38,7 @@ class GirlBook: public eosio::contract{
         EOSLIB_SERIALIZE(address, (id)(account_name)(hairColor)(eyeColor)(skinColor)(noise)(figure)(price)(pa_noise)(mo_noise)(state))
     };
 public:
-    GirlBook(account_name self) :contract(self) {}
+    girlbook(account_name self) :contract(self) {}
     typedef eosio::multi_index< N(address), address, indexed_by<N(account_name), const_mem_fun<address, uint64_t, &address::get_index>>> address_index;
 
     // @abi action
@@ -102,8 +102,9 @@ public:
             feature.state = itr->state;
             vec.push_back(feature);
         }
+        return vec;
     }
 
 };
 
-EOSIO_ABI(GirlBook, (insert)(findid)(findaccount))
+EOSIO_ABI(girlbook, (insert)(findid)(findaccount))
